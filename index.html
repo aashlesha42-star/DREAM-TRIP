@@ -1,0 +1,1009 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Trip ✈️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f7f4ef;
+    color:#222;
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 6%;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    font-size:28px;
+}
+
+.navlinks{
+    display:flex;
+    gap:28px;
+}
+
+.navlinks a{
+    text-decoration:none;
+    color:#222;
+    font-size:14px;
+    font-weight:600;
+}
+
+.menu{
+    display:none;
+    font-size:25px;
+}
+
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:120px 7% 70px;
+    background:
+    linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.15)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.hero-content{
+    max-width:700px;
+    animation:fadeUp 1s ease;
+}
+
+.small{
+    text-transform:uppercase;
+    letter-spacing:4px;
+    font-size:13px;
+    margin-bottom:20px;
+    opacity:.9;
+}
+
+.hero h1{
+    font-size:clamp(50px,8vw,95px);
+    line-height:.95;
+    margin-bottom:25px;
+}
+
+.hero p{
+    font-size:18px;
+    max-width:550px;
+    line-height:1.7;
+    opacity:.9;
+}
+
+.hero-btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:16px 28px;
+    background:white;
+    color:#222;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.hero-btn:hover{
+    transform:translateY(-4px);
+}
+
+/* SECTION */
+section{
+    padding:90px 7%;
+}
+
+.section-title{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.section-sub{
+    color:#777;
+    margin-bottom:40px;
+}
+
+/* DESTINATIONS */
+.destinations{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.destination{
+    height:400px;
+    border-radius:25px;
+    overflow:hidden;
+    position:relative;
+    cursor:pointer;
+    transition:.4s;
+}
+
+.destination:hover{
+    transform:translateY(-8px);
+}
+
+.destination img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.destination:hover img{
+    transform:scale(1.08);
+}
+
+.destination-info{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:25px;
+    color:white;
+    background:linear-gradient(transparent,rgba(0,0,0,.8));
+}
+
+.destination-info h3{
+    font-size:28px;
+}
+
+/* PLANNER */
+.planner{
+    background:#222;
+    color:white;
+    border-radius:35px;
+    padding:45px;
+}
+
+.planner-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:9px;
+    color:#bbb;
+    font-size:14px;
+}
+
+.field input,
+.field select{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    font-size:15px;
+    outline:none;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.styles{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.style{
+    padding:11px 18px;
+    border:1px solid #555;
+    border-radius:30px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.style.active,
+.style:hover{
+    background:white;
+    color:#222;
+}
+
+.generate{
+    margin-top:25px;
+    padding:17px 30px;
+    border:none;
+    border-radius:50px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:16px;
+}
+
+/* RESULT */
+#result{
+    display:none;
+    margin-top:35px;
+}
+
+.trip-header{
+    background:white;
+    color:#222;
+    padding:30px;
+    border-radius:25px;
+    margin-bottom:20px;
+}
+
+.trip-header h2{
+    font-size:35px;
+}
+
+.itinerary{
+    display:grid;
+    gap:15px;
+}
+
+.day{
+    background:#fff;
+    color:#222;
+    padding:25px;
+    border-radius:20px;
+    border-left:5px solid #222;
+}
+
+.day h3{
+    margin-bottom:10px;
+}
+
+.day p{
+    color:#666;
+    line-height:1.6;
+}
+
+/* TRAVEL VIBES */
+.vibes{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.vibe{
+    background:white;
+    padding:30px 20px;
+    border-radius:22px;
+    text-align:center;
+    transition:.3s;
+}
+
+.vibe:hover{
+    transform:translateY(-7px);
+}
+
+.vibe-icon{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+/* PACKING */
+.packing{
+    background:white;
+    border-radius:30px;
+    padding:35px;
+    max-width:800px;
+}
+
+.pack-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+
+.pack-item input{
+    width:20px;
+    height:20px;
+}
+
+/* SAVED */
+.saved{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.saved-card{
+    background:white;
+    padding:25px;
+    border-radius:22px;
+}
+
+.saved-card button{
+    margin-top:15px;
+    padding:9px 15px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+    background:#191919;
+    color:white;
+    text-align:center;
+    padding:50px 20px;
+}
+
+footer h2{
+    margin-bottom:10px;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+    padding:20px;
+}
+
+.modal-box{
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    max-width:500px;
+    width:100%;
+    text-align:center;
+}
+
+.close{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* MOBILE */
+@media(max-width:800px){
+
+    .navlinks{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .hero{
+        min-height:90vh;
+        padding:120px 6% 60px;
+    }
+
+    .hero h1{
+        font-size:55px;
+    }
+
+    section{
+        padding:65px 5%;
+    }
+
+    .destinations{
+        grid-template-columns:1fr;
+    }
+
+    .destination{
+        height:330px;
+    }
+
+    .planner{
+        padding:25px;
+    }
+
+    .planner-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .vibes{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .saved{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">✈️ DreamTrip</div>
+
+    <div class="navlinks">
+        <a href="#home">Home</a>
+        <a href="#explore">Explore</a>
+        <a href="#planner">Plan</a>
+        <a href="#packing">Packing</a>
+        <a href="#saved">Saved</a>
+    </div>
+
+    <div class="menu">☰</div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="small">Your journey starts here</div>
+
+        <h1>Dream it.<br>Plan it.<br>Go.</h1>
+
+        <p>
+            Create your perfect imaginary trip, discover amazing places,
+            build an itinerary and turn your travel dreams into a plan.
+        </p>
+
+        <a href="#planner" class="hero-btn">
+            Create My Dream Trip →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- EXPLORE -->
+<section id="explore">
+
+    <h2 class="section-title">Places worth dreaming about.</h2>
+
+    <p class="section-sub">
+        Pick a destination and let your imagination travel.
+    </p>
+
+    <div class="destinations">
+
+        <div class="destination" onclick="chooseDestination('Goa')">
+            <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80">
+            <div class="destination-info">
+                <h3>Goa</h3>
+                <p>Beaches • Food • Sunsets</p>
+            </div>
+        </div>
+
+        <div class="destination" onclick="chooseDestination('Manali')">
+            <img src="https://images.unsplash.com/photo-1517825738774-7de9363ef735?auto=format&fit=crop&w=900&q=80">
+            <div class="destination-info">
+                <h3>Manali</h3>
+                <p>Mountains • Adventure • Snow</p>
+            </div>
+        </div>
+
+        <div class="destination" onclick="chooseDestination('Jaipur')">
+            <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80">
+            <div class="destination-info">
+                <h3>Jaipur</h3>
+                <p>Culture • History • Food</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VIBES -->
+<section>
+
+    <h2 class="section-title">What's your travel mood?</h2>
+
+    <p class="section-sub">Choose the vibe for your next adventure.</p>
+
+    <div class="vibes">
+
+        <div class="vibe">
+            <div class="vibe-icon">🏔️</div>
+            <h3>Adventure</h3>
+            <p>Thrills & exploration</p>
+        </div>
+
+        <div class="vibe">
+            <div class="vibe-icon">🌴</div>
+            <h3>Relax</h3>
+            <p>Slow & peaceful</p>
+        </div>
+
+        <div class="vibe">
+            <div class="vibe-icon">🍜</div>
+            <h3>Foodie</h3>
+            <p>Taste everything</p>
+        </div>
+
+        <div class="vibe">
+            <div class="vibe-icon">🏛️</div>
+            <h3>Culture</h3>
+            <p>History & traditions</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PLANNER -->
+<section id="planner">
+
+    <div class="planner">
+
+        <h2 class="section-title">Build your dream trip.</h2>
+
+        <p class="section-sub" style="color:#aaa;">
+            Tell us what your perfect trip looks like.
+        </p>
+
+        <div class="planner-grid">
+
+            <div class="field">
+                <label>📍 Destination</label>
+                <input id="destination" placeholder="e.g. Goa">
+            </div>
+
+            <div class="field">
+                <label>💰 Budget</label>
+                <select id="budget">
+                    <option>₹1,000 - ₹5,000</option>
+                    <option>₹5,000 - ₹10,000</option>
+                    <option>₹10,000 - ₹25,000</option>
+                    <option>₹25,000+</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>📅 Number of Days</label>
+                <select id="days">
+                    <option>1 Day</option>
+                    <option>2 Days</option>
+                    <option>3 Days</option>
+                    <option>4 Days</option>
+                    <option>5 Days</option>
+                    <option>7 Days</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>👥 Travel With</label>
+                <select id="people">
+                    <option>Solo</option>
+                    <option>Friends</option>
+                    <option>Family</option>
+                </select>
+            </div>
+
+            <div class="field full">
+
+                <label>✨ Travel Style</label>
+
+                <div class="styles">
+
+                    <div class="style" onclick="selectStyle(this)">🏔️ Adventure</div>
+
+                    <div class="style" onclick="selectStyle(this)">🌴 Relaxing</div>
+
+                    <div class="style" onclick="selectStyle(this)">🍜 Foodie</div>
+
+                    <div class="style" onclick="selectStyle(this)">🏛️ Culture</div>
+
+                    <div class="style" onclick="selectStyle(this)">📸 Instagrammable</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="generate" onclick="generateTrip()">
+            ✨ Generate My Dream Trip
+        </button>
+
+
+        <div id="result">
+
+            <div class="trip-header">
+
+                <p>YOUR DREAM TRIP</p>
+
+                <h2 id="tripTitle">Goa Adventure</h2>
+
+                <p id="tripDetails"></p>
+
+            </div>
+
+            <div class="itinerary" id="itinerary"></div>
+
+            <button class="generate" onclick="saveTrip()">
+                ❤️ Save This Trip
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PACKING -->
+<section id="packing">
+
+    <h2 class="section-title">Pack your bags 🎒</h2>
+
+    <p class="section-sub">Don't forget the essentials.</p>
+
+    <div class="packing">
+
+        <div class="pack-item">
+            <input type="checkbox">
+            <span>👕 Clothes</span>
+        </div>
+
+        <div class="pack-item">
+            <input type="checkbox">
+            <span>👟 Comfortable shoes</span>
+        </div>
+
+        <div class="pack-item">
+            <input type="checkbox">
+            <span>🧴 Personal care items</span>
+        </div>
+
+        <div class="pack-item">
+            <input type="checkbox">
+            <span>🔌 Charger / Power bank</span>
+        </div>
+
+        <div class="pack-item">
+            <input type="checkbox">
+            <span>🪪 Important documents</span>
+        </div>
+
+        <div class="pack-item">
+            <input type="checkbox">
+            <span>💧 Water bottle</span>
+        </div>
+
+        <div class="pack-item">
+            <input type="checkbox">
+            <span>📷 Camera</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SAVED TRIPS -->
+<section id="saved">
+
+    <h2 class="section-title">Your saved journeys ❤️</h2>
+
+    <p class="section-sub">
+        Your dream trips stay here.
+    </p>
+
+    <div class="saved" id="savedTrips"></div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <h2>✈️ DreamTrip</h2>
+
+    <p>
+        Your next adventure starts with a dream.
+    </p>
+
+    <br>
+
+    <small>Made with ❤️ for dreamers & explorers</small>
+
+</footer>
+
+
+<!-- SUCCESS MODAL -->
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <div style="font-size:55px;">🎉</div>
+
+        <h2>Trip Saved!</h2>
+
+        <p style="margin-top:10px;color:#666;">
+            Your dream journey has been added to your saved trips.
+        </p>
+
+        <button class="close" onclick="closeModal()">
+            Awesome ✨
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let selectedStyle = "Adventure";
+let currentTrip = null;
+
+
+/* STYLE SELECT */
+function selectStyle(element){
+
+    document.querySelectorAll(".style").forEach(s=>{
+        s.classList.remove("active");
+    });
+
+    element.classList.add("active");
+
+    selectedStyle = element.innerText;
+}
+
+
+/* DESTINATION CLICK */
+function chooseDestination(place){
+
+    document.getElementById("destination").value = place;
+
+    document.getElementById("planner").scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+
+/* GENERATE TRIP */
+function generateTrip(){
+
+    let destination =
+        document.getElementById("destination").value.trim();
+
+    let budget =
+        document.getElementById("budget").value;
+
+    let daysText =
+        document.getElementById("days").value;
+
+    let people =
+        document.getElementById("people").value;
+
+    if(!destination){
+        destination = "Dream Destination";
+    }
+
+    let days =
+        parseInt(daysText);
+
+    currentTrip = {
+        destination,
+        budget,
+        days,
+        people,
+        style:selectedStyle
+    };
+
+    document.getElementById("result").style.display="block";
+
+    document.getElementById("tripTitle").innerText =
+        destination + " • " + selectedStyle;
+
+    document.getElementById("tripDetails").innerText =
+        days + " • " + people + " • " + budget;
+
+
+    let activities = [
+
+        "Explore the most popular local spots and take plenty of photos 📸",
+
+        "Try local food and discover a hidden café 🍜",
+
+        "Spend the evening watching the sunset 🌅",
+
+        "Visit a famous attraction and learn about the local culture 🏛️",
+
+        "Enjoy an adventure activity or outdoor experience 🏔️",
+
+        "Take a slow morning and explore local markets 🛍️",
+
+        "End your journey with your favourite place and make one last memory ❤️"
+
+    ];
+
+
+    let html = "";
+
+    for(let i=1;i<=days;i++){
+
+        let activity =
+            activities[(i-1)%activities.length];
+
+        html += `
+        <div class="day">
+
+            <h3>Day ${i} — ${destination}</h3>
+
+            <p>${activity}</p>
+
+            <p style="margin-top:10px;">
+                ✨ Travel vibe: ${selectedStyle}
+            </p>
+
+        </div>
+        `;
+    }
+
+    document.getElementById("itinerary").innerHTML = html;
+
+    document.getElementById("result").scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+}
+
+
+/* SAVE TRIP */
+function saveTrip(){
+
+    if(!currentTrip) return;
+
+    let saved =
+        JSON.parse(localStorage.getItem("dreamTrips")) || [];
+
+    saved.push(currentTrip);
+
+    localStorage.setItem(
+        "dreamTrips",
+        JSON.stringify(saved)
+    );
+
+    showModal();
+
+    displaySavedTrips();
+}
+
+
+/* DISPLAY SAVED */
+function displaySavedTrips(){
+
+    let saved =
+        JSON.parse(localStorage.getItem("dreamTrips")) || [];
+
+    let container =
+        document.getElementById("savedTrips");
+
+    if(saved.length===0){
+
+        container.innerHTML = `
+            <div class="saved-card">
+                <h3>No trips yet ✈️</h3>
+                <p style="margin-top:8px;color:#777;">
+                    Create your first dream trip!
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = saved.map((trip,index)=>`
+
+        <div class="saved-card">
+
+            <div style="font-size:35px;">🌍</div>
+
+            <h3 style="margin-top:10px;">
+                ${trip.destination}
+            </h3>
+
+            <p style="color:#777;margin-top:8px;">
+                ${trip.style}
+            </p>
+
+            <p style="margin-top:8px;">
+                📅 ${trip.days} days
+            </p>
+
+            <button onclick="deleteTrip(${index})">
+                🗑️ Delete
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* DELETE */
+function deleteTrip(index){
+
+    let saved =
+        JSON.parse(localStorage.getItem("dreamTrips")) || [];
+
+    saved.splice(index,1);
+
+    localStorage.setItem(
+        "dreamTrips",
+        JSON.stringify(saved)
+    );
+
+    displaySavedTrips();
+}
+
+
+/* MODAL */
+function showModal(){
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+
+/* LOAD */
+displaySavedTrips();
+
+</script>
+
+</body>
+</html>
+```
